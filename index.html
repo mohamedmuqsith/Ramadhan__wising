@@ -6,6 +6,7 @@
     <title>Happy Ramadan Wishes</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
     <style>
         /* General Styles */
 body {
@@ -96,6 +97,15 @@ button:hover {
     color: #f1c40f;
 }
 
+/* Signature Style */
+.signature {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    font-family: 'Pacifico', cursive;
+    color: #f1c40f;
+    opacity: 0.8;
+}
+
 /* Confetti Canvas */
 #confetti-canvas {
     position: absolute;
@@ -120,13 +130,14 @@ button:hover {
             </div>
             <button onclick="showMessage()">Click for a Special Wish</button>
             <p id="special-message" class="hidden">May Allah accept your prayers, forgive your sins, and guide you on the path of righteousness. Ameen!</p>
+            <div class="signature">- Mukshith</div>
         </div>
     </div>
 
     <!-- Confetti Canvas -->
     <canvas id="confetti-canvas"></canvas>
 
-    <script >
+    <script>
         // Function to show the special message and trigger confetti
 function showMessage() {
     const message = document.getElementById('special-message');
