@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Ramadan Wishes</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #2c3e50, #4ca1af);
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+    overflow: hidden;
+    animation: gradientAnimation 10s ease infinite;
+}
+
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Card Styles */
+.card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+.card-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #f1c40f;
+    font-family: 'Pacifico', cursive;
+}
+
+.card-content p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.stars {
+    margin: 20px 0;
+}
+
+.stars span {
+    font-size: 2rem;
+    color: #f1c40f;
+    margin: 0 5px;
+    transition: transform 0.3s ease;
+}
+
+.stars span:hover {
+    transform: scale(1.2);
+}
+
+button {
+    background: #f1c40f;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #2c3e50;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+    background: #e67e22;
+    transform: scale(1.05);
+}
+
+.hidden {
+    display: none;
+}
+
+#special-message {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    color: #f1c40f;
+}
+
+/* Confetti Canvas */
+#confetti-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="card-content">
+            <h1>Ramadan Mubarak!</h1>
+            <p>May this holy month bring peace, happiness, and prosperity to your life. Wishing you and your family a blessed Ramadan!</p>
+            <div class="stars">
+                <span>★</span>
+                <span>★</span>
+                <span>★</span>
+            </div>
+            <button onclick="showMessage()">Click for a Special Wish</button>
+            <p id="special-message" class="hidden">May Allah accept your prayers, forgive your sins, and guide you on the path of righteousness. Ameen!</p>
+        </div>
+    </div>
+
+    <!-- Confetti Canvas -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <script >
+        // Function to show the special message and trigger confetti
+function showMessage() {
+    const message = document.getElementById('special-message');
+    message.classList.remove('hidden');
+    startConfetti();
+}
+
+// Confetti Animation
+function startConfetti() {
+    const canvas = document.getElementById('confetti-canvas');
+    const ctx = canvas.getContext('2d');
+    let confettiPieces = [];
+
+    // Resize canvas to fit the window
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Confetti Piece Class
+    class Confetti {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height - canvas.height;
+            this.size = Math.random() * 10 + 5;
+            this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            this.speed = Math.random() * 3 + 2;
+            this.rotation = Math.random() * 360;
+        }
+
+        draw() {
+            ctx.save();
+            ctx.translate(this.x, this.y);
+            ctx.rotate(this.rotation);
+            ctx.fillStyle = this.color;
+            ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+            ctx.restore();
+        }
+
+        update() {
+            this.y += this.speed;
+            this.rotation += 0.1;
+            if (this.y > canvas.height) {
+                this.y = -this.size;
+                this.x = Math.random() * canvas.width;
+            }
+        }
+    }
+
+    // Create confetti pieces
+    for (let i = 0; i < 100; i++) {
+        confettiPieces.push(new Confetti());
+    }
+
+    // Animation loop
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        confettiPieces.forEach(confetti => {
+            confetti.draw();
+            confetti.update();
+        });
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+}
+
+// Handle window resize
+window.addEventListener('resize', () => {
+    const canvas = document.getElementById('confetti-canvas');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+    </script>
+</body>
+</html>
